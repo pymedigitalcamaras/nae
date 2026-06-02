@@ -1,1 +1,40 @@
-@tailwind base;@tailwind components;@tailwind utilities;:root{--background:#ffffff;--foreground:#111827;--font-inter:'Inter',system-ui,sans-serif;--font-space-grotesk:'Space Grotesk',system-ui,sans-serif;}html{scroll-behavior:smooth;}body{color:var(--foreground);background:var(--background);font-family:var(--font-inter);}[id="productos"] .grid > *,[class*="rounded-card"]{opacity:1!important;visibility:visible!important;transform:none!important;}img{max-width:100%;height:auto;}@layer utilities{.text-balance{text-wrap:balance;}}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-space-grotesk: 'Space Grotesk', system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-inter);
+}
+
+/* Product cards always visible */
+[id="productos"] .grid > *,
+[class*="rounded-card"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
+
+/* Keep images responsive */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
