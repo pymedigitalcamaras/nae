@@ -19,7 +19,7 @@ export default function HomePage({
       <StatsSection />
       <SuccessStoriesSection />
       <WhyNaeSection />
-      <ProductsSection />
+      <ProductsSection locale={locale} />
       <CtaBannerSection />
     </>
   );

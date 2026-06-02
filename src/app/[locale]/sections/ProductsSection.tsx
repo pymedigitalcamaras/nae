@@ -1,6 +1,3 @@
-"use client";
-
-import { useLocale } from "next-intl";
 import Link from "next/link";
 import { SectionTitle } from "@/components/SectionTitle";
 import { ArrowRight } from "lucide-react";
@@ -32,38 +29,54 @@ const products = [
   },
 ];
 
-export function ProductsSection() {
-  const locale = useLocale();
+interface ProductsSectionProps {
+  locale: string;
+}
 
+export function ProductsSection({ locale }: ProductsSectionProps) {
   return (
-    <section id="productos" className="section-padding bg-white">
-      <div className="container-content">
+    <section id="productos" className="py-16 md:py-24 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-center">
-          <SectionTitle title="Productos Destacados" subtitle="Soluciones termicas de alta eficiencia para cada necesidad" />
+          <SectionTitle 
+            title="Productos Destacados" 
+            subtitle="Soluciones termicas de alta eficiencia para cada necesidad" 
+          />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
           {products.map((product, index) => (
             <div
               key={product.slug}
-              className="bg-white rounded-card shadow-card overflow-hidden transition-all duration-500 hover:shadow-card-hover group"
+              className="bg-white rounded-xl border border-gray-100 overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-1 group"
               style={{ transitionDelay: `${index * 150}ms` }}
             >
-              <div className="aspect-[4/3] overflow-hidden bg-nae-grey">
+              <div className="aspect-[4/3] overflow-hidden bg-gray-100">
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="w-full h-full object-cover transition-transform duration-400 group-hover:scale-105"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  loading="lazy"
                 />
               </div>
               <div className="p-6">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-medium text-white mb-3" style={{ backgroundColor: product.badgeColor }}>
+                <span 
+                  className="inline-block px-3 py-1 rounded-full text-xs font-medium text-white mb-3" 
+                  style={{ backgroundColor: product.badgeColor }}
+                >
                   {product.badge}
                 </span>
-                <h3 className="font-space-grotesk font-medium text-lg text-nae-blue mb-2">{product.title}</h3>
-                <p className="text-sm text-nae-dark/60 leading-relaxed line-clamp-2 mb-4">{product.description}</p>
-                <Link href={`/${locale}/products/${product.slug}`} className="inline-flex items-center gap-1.5 text-sm font-medium text-nae-blue hover:text-nae-orange transition-colors group/link">
-                  Ver detalles <ArrowRight size={14} className="transition-transform group-hover/link:translate-x-1" />
+                <h3 className="font-medium text-lg text-[#1E40AF] mb-2">
+                  {product.title}
+                </h3>
+                <p className="text-sm text-gray-600 leading-relaxed line-clamp-2 mb-4">
+                  {product.description}
+                </p>
+                <Link 
+                  href={`/${locale}/products/${product.slug}`} 
+                  className="inline-flex items-center gap-1.5 text-sm font-medium text-[#1E40AF] hover:text-[#F97316] transition-colors"
+                >
+                  Ver detalles <ArrowRight size={14} />
                 </Link>
               </div>
             </div>
@@ -71,7 +84,10 @@ export function ProductsSection() {
         </div>
 
         <div className="mt-10 text-center">
-          <Link href={`/${locale}/products`} className="inline-flex items-center gap-2 text-nae-blue hover:text-nae-orange font-medium transition-colors">
+          <Link 
+            href={`/${locale}/products`} 
+            className="inline-flex items-center gap-2 text-[#1E40AF] hover:text-[#F97316] font-medium transition-colors"
+          >
             Ver todos los productos <ArrowRight size={16} />
           </Link>
         </div>
