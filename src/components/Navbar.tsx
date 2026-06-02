@@ -1,212 +1,113 @@
-"use client";
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { Menu, X, Globe } from 'lucide-react';
 
-import { useState, useEffect } from "react";
-import { useTranslations, useLocale } from "next-intl";
-import Link from "next/link";
-import Image from "next/image";
-import { usePathname } from "next/navigation";
-import {
-  Menu,
-  X,
-  ChevronDown,
-  Globe,
-  ShieldCheck,
-  LogIn,
-} from "lucide-react";
+const navLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/products', label: 'Productos' },
+  { to: '/about', label: 'Nosotros' },
+  { to: '/oem', label: 'OEM' },
+  { to: '/contact', label: 'Contacto' },
+];
 
-export function Navbar() {
-  const t = useTranslations("nav");
-  const locale = useLocale();
-  const pathname = usePathname();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [langDropdownOpen, setLangDropdownOpen] = useState(false);
-
-  // Detect scroll for background change
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
-
-  const navLinks = [
-    { href: `/${locale}/products`, label: t("products") },
-    { href: `/${locale}/about`, label: t("about") },
-    { href: `/${locale}/oem`, label: t("oem") },
-    { href: `/${locale}/contact`, label: t("contact") },
-    { href: `/${locale}/savings-calculator`, label: t("calculator") },
-  ];
-
-  const languages = [
-    { code: "es", label: "Español", flag: "🇪🇸" },
-    { code: "en", label: "English", flag: "🇺🇸" },
-    { code: "pt", label: "Português", flag: "🇧🇷" },
-  ];
-
-  // Switch locale by replacing current locale in pathname
-  function switchLocale(newLocale: string) {
-    const newPath = pathname.replace(`/${locale}`, `/${newLocale}`);
-    return newPath;
-  }
-
-  const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
+export default function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-[100] h-[70px] transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-navbar"
-          : "bg-white/80 backdrop-blur-sm"
-      }`}
-    >
-      <div className="container-content h-full flex items-center justify-between">
-        {/* Logo - NAE Brand */}
-        <Link href={`/${locale}`} className="flex items-center gap-2 z-10">
-          <Image
-            src="/images/logo-nae.png"
-            alt="NAE - New AGE Energy"
-            width={130}
-            height={40}
-            className="h-10 w-auto object-contain"
-            priority
-          />
-        </Link>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                isActive(link.href)
-                  ? "text-nae-blue bg-nae-blue/10"
-                  : "text-nae-dark/80 hover:text-nae-blue hover:bg-nae-blue/5"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Right side: Language + Installer Access */}
-        <div className="hidden lg:flex items-center gap-3">
-          {/* Language Switcher */}
-          <div className="relative">
-            <button
-              onClick={() => setLangDropdownOpen(!langDropdownOpen)}
-              className="flex items-center gap-1.5 px-3 py-2 rounded-md text-sm font-medium text-nae-dark/80 hover:text-nae-blue hover:bg-nae-blue/5 transition-colors"
-            >
-              <Globe size={16} />
-              <span>{locale.toUpperCase()}</span>
-              <ChevronDown size={14} />
-            </button>
-            {langDropdownOpen && (
-              <>
-                <div
-                  className="fixed inset-0 z-40"
-                  onClick={() => setLangDropdownOpen(false)}
-                />
-                <div className="absolute right-0 top-full mt-1 w-44 bg-white rounded-lg shadow-card-hover border border-gray-100 overflow-hidden z-50 py-1">
-                  {languages.map((lang) => (
-                    <Link
-                      key={lang.code}
-                      href={switchLocale(lang.code)}
-                      className={`flex items-center gap-2 px-4 py-2.5 text-sm transition-colors ${
-                        locale === lang.code
-                          ? "text-nae-blue bg-nae-blue/5 font-medium"
-                          : "text-nae-dark/80 hover:bg-nae-grey"
-                      }`}
-                      onClick={() => setLangDropdownOpen(false)}
-                    >
-                      <span>{lang.flag}</span>
-                      <span>{lang.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Installer Access Button */}
-          <Link
-            href={`/${locale}/login`}
-            className="btn-outline flex items-center gap-2 text-sm px-4 py-2.5"
-          >
-            <ShieldCheck size={16} />
-            {t("installerAccess")}
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+      <div className="container-content">
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2 shrink-0">
+            <div className="w-10 h-10 rounded-lg bg-nae-blue flex items-center justify-center">
+              <span className="text-white font-bold text-lg font-heading">N</span>
+            </div>
+            <div className="hidden sm:block">
+              <span className="font-heading font-bold text-lg text-nae-dark leading-none">NAE</span>
+              <span className="block text-[10px] text-gray-500 leading-none -mt-0.5">New AGE Energy</span>
+            </div>
           </Link>
-        </div>
 
-        {/* Mobile Hamburger */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden z-10 p-2 rounded-md text-nae-dark hover:bg-nae-grey transition-colors"
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 top-[70px] bg-white z-50 lg:hidden animate-fade-in">
-          <div className="flex flex-col p-6 gap-2">
-            {navLinks.map((link) => (
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex items-center gap-1">
+            {navLinks.map(link => (
               <Link
-                key={link.href}
-                href={link.href}
-                className={`px-4 py-3 rounded-lg text-base font-medium transition-colors ${
-                  isActive(link.href)
-                    ? "text-nae-blue bg-nae-blue/10"
-                    : "text-nae-dark/80 hover:bg-nae-grey"
+                key={link.to}
+                to={link.to}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  location.pathname === link.to
+                    ? 'text-nae-blue bg-blue-50'
+                    : 'text-gray-600 hover:text-nae-blue hover:bg-gray-50'
                 }`}
               >
                 {link.label}
               </Link>
             ))}
+          </div>
 
-            <hr className="my-3 border-gray-200" />
-
-            {/* Language options */}
-            <p className="px-4 text-xs font-medium text-gray-400 uppercase tracking-wider">
-              Idioma
-            </p>
-            <div className="flex gap-2 px-4">
-              {languages.map((lang) => (
-                <Link
-                  key={lang.code}
-                  href={switchLocale(lang.code)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                    locale === lang.code
-                      ? "text-nae-blue bg-nae-blue/10"
-                      : "text-nae-dark/70 hover:bg-nae-grey"
-                  }`}
-                >
-                  {lang.flag} {lang.code.toUpperCase()}
-                </Link>
-              ))}
-            </div>
-
-            <hr className="my-3 border-gray-200" />
-
+          {/* Right side */}
+          <div className="flex items-center gap-2">
             <Link
-              href={`/${locale}/login`}
-              className="btn-secondary flex items-center justify-center gap-2 text-base py-3 mx-4"
+              to="/savings-calculator"
+              className="hidden md:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-nae-orange hover:bg-orange-50 rounded-lg transition-colors"
             >
-              <LogIn size={18} />
-              {t("installerAccess")}
+              Calculadora
+            </Link>
+            <Link
+              to="/login"
+              className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium bg-nae-blue text-white rounded-lg hover:bg-nae-dark-blue transition-colors"
+            >
+              Acceso Instalador
+            </Link>
+            <button className="p-2 text-gray-500 hover:text-nae-blue rounded-lg hover:bg-gray-50 transition-colors">
+              <Globe size={18} />
+            </button>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="lg:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            >
+              {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile menu */}
+      {mobileOpen && (
+        <div className="lg:hidden bg-white border-t shadow-lg">
+          <div className="container-content py-4 space-y-1">
+            {navLinks.map(link => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setMobileOpen(false)}
+                className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  location.pathname === link.to
+                    ? 'text-nae-blue bg-blue-50'
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              to="/savings-calculator"
+              onClick={() => setMobileOpen(false)}
+              className="block px-4 py-3 text-sm font-medium text-nae-orange hover:bg-orange-50 rounded-lg"
+            >
+              Calculadora
+            </Link>
+            <Link
+              to="/login"
+              onClick={() => setMobileOpen(false)}
+              className="block px-4 py-3 text-sm font-medium bg-nae-blue text-white rounded-lg text-center mt-2"
+            >
+              Acceso Instalador
             </Link>
           </div>
         </div>
       )}
-    </header>
+    </nav>
   );
 }

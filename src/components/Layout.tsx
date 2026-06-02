@@ -1,17 +1,15 @@
-import type { ReactNode } from "react";
-import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
-import { WhatsAppButton } from "./WhatsAppButton";
+import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import WhatsAppButton from './WhatsAppButton';
 
-interface LayoutProps {
-  children: ReactNode;
-}
-
-export function Layout({ children }: LayoutProps) {
+export default function Layout() {
   return (
-    <div className="min-h-[100dvh] flex flex-col">
+    <div className="min-h-[100dvh] flex flex-col bg-nae-grey">
       <Navbar />
-      <main className="flex-1 pt-[70px]">{children}</main>
+      <main className="flex-1 pt-16 lg:pt-20">
+        <Outlet />
+      </main>
       <Footer />
       <WhatsAppButton />
     </div>
