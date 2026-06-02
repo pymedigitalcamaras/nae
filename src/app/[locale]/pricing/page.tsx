@@ -1,6 +1,4 @@
-"use client";
-
-import { useState } from "react";
+import { setRequestLocale } from "next-intl/server";
 
 const pricingData = [
   { name: "Bomba R290 Monobloc 12kW", category: "Aire-Agua", price: 1299, moq: 5 },
@@ -12,9 +10,8 @@ const pricingData = [
   { name: "Calentador de Piscina 20kW", category: "Piscina", price: 2199, moq: 3 },
 ];
 
-export default function PricingPage() {
-  const [filter, setFilter] = useState("");
-  const products = filter ? pricingData.filter((p) => p.category === filter) : pricingData;
+export default function PricingPage({ params: { locale } }: { params: { locale: string } }) {
+  setRequestLocale(locale);
 
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
@@ -26,26 +23,19 @@ export default function PricingPage() {
       </section>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex flex-wrap gap-2 mb-8">
-          {["Todos", "Aire-Agua", "Split", "Comercial", "Geotermia", "Piscina", "Accesorios"].map((cat) => (
-            <button key={cat} onClick={() => setFilter(cat === "Todos" ? "" : cat)}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${filter === (cat === "Todos" ? "" : cat) ? "bg-[#1E40AF] text-white" : "bg-gray-100 text-gray-600 hover:bg-gray-200"}`}>
-              {cat}
-            </button>
-          ))}
-        </div>
-
         <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50"><tr>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Producto</th>
-                <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Categoría</th>
-                <th className="px-6 py-4 text-right text-sm font-medium text-gray-500">Precio USD</th>
-                <th className="px-6 py-4 text-center text-sm font-medium text-gray-500">MOQ</th>
-              </tr></thead>
+              <thead className="bg-gray-50">
+                <tr>
+                  <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Producto</th>
+                  <th className="px-6 py-4 text-left text-sm font-medium text-gray-500">Categoría</th>
+                  <th className="px-6 py-4 text-right text-sm font-medium text-gray-500">Precio USD</th>
+                  <th className="px-6 py-4 text-center text-sm font-medium text-gray-500">MOQ</th>
+                </tr>
+              </thead>
               <tbody className="divide-y divide-gray-100">
-                {products.map((p) => (
+                {pricingData.map((p) => (
                   <tr key={p.name} className="hover:bg-gray-50">
                     <td className="px-6 py-4 font-medium text-gray-900">{p.name}</td>
                     <td className="px-6 py-4"><span className="px-2 py-1 rounded-full text-xs font-medium bg-[#1E40AF]/10 text-[#1E40AF]">{p.category}</span></td>
