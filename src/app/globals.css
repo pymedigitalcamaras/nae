@@ -2,105 +2,102 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  :root {
-    --background: #F3F4F6;
-    --foreground: #111827;
-    --font-inter: var(--font-inter);
-    --font-space-grotesk: var(--font-space-grotesk);
-  }
-
-  html {
-    scroll-behavior: smooth;
-  }
-
-  body {
-    @apply bg-nae-grey text-nae-dark font-inter;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-space-grotesk font-medium;
-  }
-
-  h1 {
-    @apply text-3xl md:text-4xl lg:text-5xl leading-tight tracking-tight;
-  }
-
-  h2 {
-    @apply text-2xl md:text-3xl lg:text-4xl leading-snug;
-  }
-
-  h3 {
-    @apply text-xl md:text-2xl leading-snug;
-  }
-
-  h4 {
-    @apply text-lg md:text-xl leading-normal;
-  }
+:root {
+  --background: #ffffff;
+  --foreground: #111827;
+  --font-inter: 'Inter', system-ui, sans-serif;
+  --font-space-grotesk: 'Space Grotesk', system-ui, sans-serif;
 }
 
-@layer components {
-  .gradient-text {
-    background: linear-gradient(90deg, #1E40AF 0%, #F97316 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+html {
+  scroll-behavior: smooth;
+}
 
-  .gradient-bg {
-    background: linear-gradient(90deg, #1E40AF 0%, #1E3A8A 100%);
-  }
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-inter);
+}
 
-  .btn-primary {
-    @apply bg-nae-orange text-white px-8 py-4 rounded-button font-medium transition-all duration-200;
-  }
+/* EMERGENCY FIX: Force all content to be visible */
+* {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
 
-  .btn-primary:hover {
-    @apply bg-nae-dark-orange;
-    transform: scale(1.02);
-  }
+/* Override any transform that hides elements */
+section,
+div,
+article,
+main,
+header,
+footer,
+nav,
+aside,
+figure,
+figcaption,
+ul,
+ol,
+li,
+p,
+h1, h2, h3, h4, h5, h6,
+span,
+a,
+button,
+img,
+form,
+input,
+textarea,
+label,
+table,
+thead,
+tbody,
+tr,
+td,
+th {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
+  clip-path: none !important;
+  mask: none !important;
+  -webkit-mask: none !important;
+}
 
-  .btn-secondary {
-    @apply bg-nae-blue text-white px-8 py-4 rounded-button font-medium transition-all duration-200;
-  }
+/* Specific fix for ProductsSection and animated sections */
+[id="productos"],
+[class*="ProductsSection"],
+[class*="products"],
+[class*="product"],
+[class*="opacity-0"],
+[class*="translate-y-10"],
+[class*="opacity-0 translate-y-10"],
+[class*="opacity-0"][class*="translate-y"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
 
-  .btn-secondary:hover {
-    @apply bg-nae-dark-blue;
-  }
+/* Force grid items visible */
+.grid > *,
+[class*="grid"] > * {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
 
-  .btn-outline {
-    @apply border border-nae-blue text-nae-blue bg-transparent px-8 py-4 rounded-button font-medium transition-all duration-200;
-  }
+/* Force cards visible */
+[class*="card"],
+[class*="Card"] {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: none !important;
+}
 
-  .btn-outline:hover {
-    @apply bg-nae-blue text-white;
-  }
-
-  .btn-outline-white {
-    @apply border border-white text-white bg-transparent px-8 py-4 rounded-button font-medium transition-all duration-200;
-  }
-
-  .btn-outline-white:hover {
-    @apply bg-white text-nae-blue;
-  }
-
-  .section-padding {
-    @apply py-16 md:py-20 lg:py-24;
-  }
-
-  .container-content {
-    @apply max-w-content mx-auto px-4 sm:px-6 lg:px-12;
-  }
-
-  .card {
-    @apply bg-white rounded-card shadow-card transition-all duration-300 ease-out;
-  }
-
-  .card:hover {
-    @apply shadow-card-hover;
-    transform: translateY(-4px);
-  }
+/* Keep images responsive */
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 @layer utilities {
