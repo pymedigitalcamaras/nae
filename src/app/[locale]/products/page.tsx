@@ -1,41 +1,52 @@
 import { setRequestLocale } from "next-intl/server";
+import ProductsClient from "./ProductsClient";
 
-const products = [
-  { name: "Bomba de Calor R290 Monobloc 12kW", desc: "Sistema monobloc con refrigerante R290. Alta eficiencia para climas templados y fríos. COP 4.5", badge: "Aire-Agua", badgeColor: "#1E40AF", emoji: "❄️" },
-  { name: "Bomba de Calor R290 Monobloc 20kW", desc: "Potente sistema monobloc 20kW para aplicaciones comerciales y residenciales grandes.", badge: "Aire-Agua", badgeColor: "#1E40AF", emoji: "🏭" },
-  { name: "Sistema Split 9kW + Fancoil", desc: "Kit completo split con unidad interior fancoil. Ideal para renovaciones. COP 4.2", badge: "Split", badgeColor: "#059669", emoji: "🌀" },
-  { name: "Bomba de Circulación Inteligente", desc: "Bomba de circulación eficiente para sistemas de calefacción por suelo radiante.", badge: "Accesorios", badgeColor: "#6b7280", emoji: "💧" },
-  { name: "Bomba Monobloc Comercial 30kW", desc: "Sistema de alta capacidad para edificios comerciales y aplicaciones industriales.", badge: "Comercial", badgeColor: "#7c3aed", emoji: "🏢" },
-  { name: "Bomba Geotérmica 15kW", desc: "Aprovecha la energía del subsuelo para máxima eficiencia todo el año.", badge: "Geotermia", badgeColor: "#047857", emoji: "🌱" },
-  { name: "Calentador de Piscina 20kW", desc: "Mantén tu piscina a la temperatura ideal todo el año con máxima eficiencia.", badge: "Piscina", badgeColor: "#0891b2", emoji: "🏊" },
-];
+interface ProductsPageProps {
+  params: Promise<{
+    locale: string;
+  }>;
+}
 
-export default function ProductsPage({ params: { locale } }: { params: { locale: string } }) {
+export default async function ProductsPage({ params }: ProductsPageProps) {
+  const { locale } = await params;
   setRequestLocale(locale);
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
-      <section className="bg-gradient-to-br from-[#1E40AF] to-[#1E3A8A] py-16 md:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="font-space-grotesk font-medium text-3xl md:text-4xl text-white mb-4">Nuestros Productos</h1>
-          <p className="text-white/70 text-lg max-w-2xl">Catálogo completo de bombas de calor NAE.</p>
+    <main className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-nae-dark-blue via-nae-blue to-blue-500 py-20 md:py-28 overflow-hidden">
+        {/* Decorative overlay pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+            <defs>
+              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        {/* Floating decorative elements */}
+        <div className="absolute top-20 left-10 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl" />
+        <div className="absolute bottom-20 right-10 w-48 h-48 bg-nae-orange opacity-10 rounded-full blur-3xl" />
+        <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-white opacity-5 rounded-full blur-xl" />
+
+        <div className="container-content relative z-10">
+          <div className="max-w-3xl mx-auto text-center">
+            <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold gradient-text mb-6">
+              Nuestros Productos
+            </h1>
+            <p className="text-blue-100 text-lg md:text-xl leading-relaxed max-w-2xl mx-auto">
+              Soluciones de climatización eficientes para instaladores profesionales.
+              Descubre nuestra gama completa de bombas de calor de alta eficiencia energética.
+            </p>
+          </div>
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {products.map((p) => (
-            <div key={p.name} className="bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-xl transition-all duration-300">
-              <div className="aspect-[4/3] bg-gray-100 flex items-center justify-center text-6xl">{p.emoji}</div>
-              <div className="p-6">
-                <span className="inline-block px-3 py-1 rounded-full text-xs font-medium text-white mb-3" style={{ backgroundColor: p.badgeColor }}>{p.badge}</span>
-                <h3 className="font-medium text-lg text-[#1E40AF] mb-2">{p.name}</h3>
-                <p className="text-sm text-gray-600">{p.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
+      {/* Client Component: Filter Pills + Product Grid + CTA */}
+      <ProductsClient />
+    </main>
   );
 }
