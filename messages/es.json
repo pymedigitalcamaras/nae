@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "title": "NAE — New AGE Energy | Bombas de Calor para Latinoamérica",
+    "description": "Tecnología de climatización para Latinoamérica. Fábrica certificada, soporte local, precios mayoristas."
+  },
+  "nav": {
+    "products": "Productos",
+    "about": "Nosotros",
+    "oem": "OEM",
+    "contact": "Contacto",
+    "calculator": "Calculadora",
+    "installerAccess": "Acceso Instalador",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión",
+    "dashboard": "Panel",
+    "register": "Registrarse"
+  },
+  "hero": {
+    "headline1": "Tecnología de Climatización",
+    "headline2": "para Latinoamérica",
+    "subtitle": "Eficiencia energética, soporte local, precios de fábrica. La certeza que necesitas para crecer.",
+    "ctaPrimary": "Ver Productos",
+    "ctaSecondary": "Soy Instalador"
+  },
+  "stats": {
+    "years": {
+      "number": "10+",
+      "label": "Años de Experiencia"
+    },
+    "countries": {
+      "number": "60+",
+      "label": "Países Alcanzados"
+    },
+    "installers": {
+      "number": "500+",
+      "label": "Instaladores Certificados"
+    },
+    "support": {
+      "number": "24/7",
+      "label": "Soporte Técnico"
+    }
+  },
+  "whyNae": {
+    "title": "¿Por Qué Elegir NAE?",
+    "subtitle": "La certeza que necesitas para crecer tu negocio de climatización",
+    "cards": {
+      "factory": {
+        "title": "Fábrica Certificada",
+        "description": "Equipos fabricados bajo estándares internacionales ISO 9001, con certificaciones CE y pruebas de calidad rigurosas."
+      },
+      "support": {
+        "title": "Soporte en Latinoamérica",
+        "description": "Atención técnica en español y portugués, con equipo local que entiende tu mercado, tu clima y tus urgencias."
+      },
+      "guidance": {
+        "title": "Acompañamiento Completo",
+        "description": "Desde la instalación hasta el primer arranque. No vendemos máquinas, vendemos certeza. Estamos contigo en cada paso."
+      },
+      "pricing": {
+        "title": "Precios Mayoristas",
+        "description": "Acceso a precios de distribuidor una vez aprobada tu cuenta. Sin intermediarios. Sin sorpresas."
+      }
+    }
+  },
+  "products": {
+    "title": "Nuestros Productos",
+    "subtitle": "Bombas de calor para cada necesidad. Desde residencial hasta comercial.",
+    "viewAll": "Ver Todos los Productos",
+    "viewDetails": "Ver detalles",
+    "categories": {
+      "airSource": "Air Source",
+      "geothermal": "Geothermal",
+      "pool": "Pool Heating",
+      "commercial": "Commercial"
+    },
+    "featured": {
+      "airSource": {
+        "title": "Bombas de Calor Aire-Agua",
+        "description": "Solución eficiente para calefacción y ACS. Ideal para climas templados y fríos."
+      },
+      "geothermal": {
+        "title": "Bombas de Calor Geotérmicas",
+        "description": "Máxima eficiencia aprovechando la energía del subsuelo. Reducción de consumo hasta un 70%."
+      },
+      "pool": {
+        "title": "Bombas de Calor para Piscinas",
+        "description": "Mantén tu piscina a la temperatura ideal todo el año con máxima eficiencia energética."
+      }
+    }
+  },
+  "ctaBanner": {
+    "title": "¿Listo para crecer tu negocio de climatización?",
+    "description": "Regístrate como instalador certificado NAE y accede a precios mayoristas, soporte técnico prioritario y acompañamiento en cada proyecto.",
+    "btnPrimary": "Crear Cuenta de Instalador",
+    "btnSecondary": "Contáctanos"
+  },
+  "footer": {
+    "slogan": "No vendemos máquinas. Vendemos certeza.",
+    "quickLinks": "Enlaces Rápidos",
+    "contact": "Contacto",
+    "email": "Email",
+    "newsletter": {
+      "title": "Newsletter",
+      "placeholder": "Tu email",
+      "subscribe": "Suscribirse"
+    },
+    "copyright": "© 2026 New AGE Energy. Todos los derechos reservados."
+  },
+  "language": {
+    "es": "Español",
+    "en": "English",
+    "pt": "Português",
+    "switch": "Cambiar idioma"
+  },
+  "whatsapp": {
+    "contactUs": "Contáctanos",
+    "chooseLanguage": "¿En qué idioma prefieres hablar?",
+    "poweredBy": "Powered by NAE",
+    "messagePreview": {
+      "es": "Mensaje en español",
+      "en": "Message in English",
+      "pt": "Mensagem em português"
+    }
+  },
+  "successStories": {
+    "badge": "Programa de Éxito",
+    "headline": "Transformamos instaladores en empresas exitosas",
+    "subtitle": "Más que equipos: te damos las herramientas, el conocimiento y el respaldo para hacer crecer tu negocio de climatización",
+    "ctaText": "Únete a los instaladores que ya están creciendo con NAE",
+    "ctaPrimary": "Empieza tu transformación",
+    "slide1": {
+      "title": "Aumenta tus ingresos con cada instalación",
+      "description": "Nuestros instaladores reportan un incremento promedio del 300% en sus ingresos tras certificarse con NAE. Accede a equipos de alta eficiencia, soporte técnico 24/7 y márgenes de ganancia superiores al 40%.",
+      "statLabel": "Incremento promedio en ingresos"
+    },
+    "slide2": {
+      "title": "Capacitación profesional continua",
+      "description": "Más de 500 instaladores certificados en toda Latinoamérica. Accede a nuestro programa de formación técnica con instructores especializados, certificaciones reconocidas y soporte post-venta que garantiza tu éxito en cada proyecto.",
+      "statLabel": "Instaladores certificados"
+    },
+    "slide3": {
+      "title": "Construye tu propia marca en climatización",
+      "description": "NAE te respalda para que crees tu empresa de instalación de bombas de calor. Te proporcionamos los equipos, la formación, el marketing y el soporte logístico para que te conviertas en el referente de climatización de tu región.",
+      "statLabel": "Años transformando instaladores en empresarios"
+    }
+  }
+}
