@@ -5,11 +5,9 @@ import WhatsAppButton from './WhatsAppButton';
 
 export default function Layout() {
   return (
-    <div className="min-h-[100dvh] flex flex-col bg-nae-grey">
+    <div className="flex min-h-screen flex-col">
       <Navbar />
-      <main className="flex-1 pt-16 lg:pt-20">
-        <Outlet />
-      </main>
+      <main className="flex-1 pt-16"><Outlet /></main>
       <Footer />
       <WhatsAppButton />
     </div>

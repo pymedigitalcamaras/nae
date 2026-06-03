@@ -48,22 +48,6 @@ module.exports = {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        "nae-blue": "#1B4DB5",
-        "nae-dark-blue": "#0D2B6B",
-        "nae-orange": "#E87722",
-        "nae-dark-orange": "#C75D12",
-        "nae-grey": "#F5F7FA",
-        "nae-dark": "#1A1A2E",
-        "nae-success": "#10B981",
-        "nae-warning": "#F59E0B",
-        "nae-error": "#EF4444",
-      },
-      fontFamily: {
-        heading: ['"Space Grotesk"', 'system-ui', 'sans-serif'],
-        body: ['Inter', 'system-ui', 'sans-serif'],
-      },
-      maxWidth: {
-        content: "1280px",
       },
       borderRadius: {
         xl: "calc(var(--radius) + 4px)",

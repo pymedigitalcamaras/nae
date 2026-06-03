@@ -1,68 +1,41 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { AlertCircle } from 'lucide-react';
-
-const ADMIN_USER = 'alejandro';
-const ADMIN_PASS = 'fundo@123Fundo120';
+import { Link, useNavigate } from 'react-router-dom';
+import { Shield } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-  const [user, setUser] = useState('');
-  const [pass, setPass] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (user === ADMIN_USER && pass === ADMIN_PASS) {
-      localStorage.setItem('nae_admin', 'true');
+    e.preventDefault(); setError('');
+    if (username === 'alejandro' && password === 'fundo@123Fundo120') {
+      localStorage.setItem('nae_admin_auth', 'authenticated');
       navigate('/admin');
-    } else {
-      setError('Usuario o contraseña incorrectos');
-    }
+    } else { setError('Usuario o contraseña incorrectos'); }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-nae-dark-blue px-4">
-      <div className="bg-white rounded-xl shadow-2xl p-8 max-w-sm w-full">
-        <div className="text-center mb-6">
-          <img src="/logo-nae.png" alt="NAE" className="h-16 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-nae-dark font-heading">Panel Admin</h1>
-          <p className="text-gray-500 text-sm">NAE Energy - Gestión de productos</p>
-        </div>
-
-        {error && (
-          <div className="bg-red-50 text-red-600 p-3 rounded-lg mb-4 text-sm flex items-center gap-2">
-            <AlertCircle size={16} /> {error}
-          </div>
-        )}
-
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Usuario</label>
-            <input
-              type="text"
-              value={user}
-              onChange={e => setUser(e.target.value)}
-              className="input-field"
-              placeholder="alejandro"
-              autoComplete="username"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
-            <input
-              type="password"
-              value={pass}
-              onChange={e => setPass(e.target.value)}
-              className="input-field"
-              placeholder="••••••••"
-              autoComplete="current-password"
-            />
-          </div>
-          <button type="submit" className="w-full btn-primary">
-            Entrar al Panel
-          </button>
-        </form>
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#0D2B6B] to-[#1B4DB5] px-4">
+      <div className="w-full max-w-sm">
+        <div className="mb-6 text-center"><Shield className="mx-auto mb-2 h-12 w-12 text-white" /><h1 className="text-2xl font-bold text-white">NAE Admin</h1><p className="text-blue-200">Panel de Administración</p></div>
+        <Card>
+          <CardHeader className="text-center pb-2"><h2 className="text-lg font-semibold">Iniciar Sesión</h2></CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div><Label>Usuario</Label><Input value={username} onChange={e=>setUsername(e.target.value)} placeholder="alejandro" /></div>
+              <div><Label>Contraseña</Label><Input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="••••••••" /></div>
+              {error && <p className="text-xs text-red-500">{error}</p>}
+              <Button type="submit" className="w-full bg-[#E87722] hover:bg-[#D66A1A]">Ingresar al Panel</Button>
+            </form>
+            <div className="mt-4 text-center"><Link to="/" className="text-sm text-gray-500 hover:text-gray-700">Volver al sitio</Link></div>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

@@ -1,14 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { HashRouter } from 'react-router-dom';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
 import './i18n';
-import App from './App';
 import './index.css';
+import App from './App';
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <HashRouter>
-      <App />
-    </HashRouter>
-  </React.StrictMode>
-);
+// NAE v4 - Supabase connected
+createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);

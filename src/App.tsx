@@ -1,7 +1,7 @@
-import { Routes, Route } from 'react-router-dom';
-import { Suspense, lazy } from 'react';
+import { lazy, Suspense } from 'react';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/Layout';
-import ProtectedRoute from './components/ProtectedRoute';
+import { Loader2 } from 'lucide-react';
 
 const Home = lazy(() => import('./pages/Home'));
 const Products = lazy(() => import('./pages/Products'));
@@ -9,41 +9,42 @@ const ProductDetail = lazy(() => import('./pages/ProductDetail'));
 const Services = lazy(() => import('./pages/Services'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Pricing = lazy(() => import('./pages/Pricing'));
+const Savings = lazy(() => import('./pages/Savings'));
+const OEM = lazy(() => import('./pages/OEM'));
 const Login = lazy(() => import('./pages/Login'));
 const Register = lazy(() => import('./pages/Register'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
-const Pricing = lazy(() => import('./pages/Pricing'));
-const SavingsCalculator = lazy(() => import('./pages/SavingsCalculator'));
-const Admin = lazy(() => import('./pages/Admin'));
-const OEM = lazy(() => import('./pages/OEM'));
 const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const Admin = lazy(() => import('./pages/Admin'));
 
-const Loading = () => (
-  <div className="min-h-screen flex items-center justify-center">
-    <div className="w-12 h-12 border-4 border-nae-blue border-t-transparent rounded-full animate-spin" />
-  </div>
-);
+function Loading() {
+  return <div className="flex h-screen w-full items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-[#1B4DB5]" /></div>;
+}
 
 export default function App() {
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Suspense fallback={<Loading />}><Home /></Suspense>} />
-        <Route path="/products" element={<Suspense fallback={<Loading />}><Products /></Suspense>} />
-        <Route path="/products/:slug" element={<Suspense fallback={<Loading />}><ProductDetail /></Suspense>} />
-        <Route path="/services" element={<Suspense fallback={<Loading />}><Services /></Suspense>} />
-        <Route path="/about" element={<Suspense fallback={<Loading />}><About /></Suspense>} />
-        <Route path="/contact" element={<Suspense fallback={<Loading />}><Contact /></Suspense>} />
-        <Route path="/login" element={<Suspense fallback={<Loading />}><Login /></Suspense>} />
-        <Route path="/register" element={<Suspense fallback={<Loading />}><Register /></Suspense>} />
-        <Route path="/oem" element={<Suspense fallback={<Loading />}><OEM /></Suspense>} />
-        <Route path="/pricing" element={<Suspense fallback={<Loading />}><Pricing /></Suspense>} />
-        <Route path="/savings-calculator" element={<Suspense fallback={<Loading />}><SavingsCalculator /></Suspense>} />
-        <Route path="/dashboard" element={<Suspense fallback={<Loading />}><ProtectedRoute><Dashboard /></ProtectedRoute></Suspense>} />
-      </Route>
-      {/* Admin routes - no Layout (fullscreen) */}
-      <Route path="/admin" element={<Suspense fallback={<Loading />}><Admin /></Suspense>} />
-      <Route path="/admin-login" element={<Suspense fallback={<Loading />}><AdminLogin /></Suspense>} />
-    </Routes>
+    <HashRouter>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/product/:slug" element={<ProductDetail />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/pricing" element={<Pricing />} />
+            <Route path="/savings" element={<Savings />} />
+            <Route path="/oem" element={<OEM />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </Suspense>
+    </HashRouter>
   );
 }

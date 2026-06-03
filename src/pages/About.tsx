@@ -1,211 +1,69 @@
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { Target, Eye, Heart, Award, FlaskConical, Check, Settings } from 'lucide-react';
-import { timeline, team } from '../data';
+import { Award, Leaf, Lightbulb, Heart, Factory, Users, Globe, TrendingUp } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+
+const values = [
+  { icon: Award, title: 'Calidad', desc: 'Materiales premium y control de calidad riguroso en cada unidad.' },
+  { icon: Lightbulb, title: 'Innovación', desc: 'I+D continuo para bombas de calor más eficientes cada año.' },
+  { icon: Leaf, title: 'Sostenibilidad', desc: 'Refrigerantes ecológicos R290 y energías renovables.' },
+  { icon: Heart, title: 'Servicio', desc: 'Acompañamiento técnico completo para instaladores.' },
+];
+const stats = [
+  { icon: Factory, value: '20,000', label: 'm² fábrica' },
+  { icon: Users, value: '50+', label: 'partners' },
+  { icon: Globe, value: '15', label: 'países' },
+  { icon: TrendingUp, value: '10+', label: 'años experiencia' },
+];
+const milestones = [
+  { year: '2020', text: 'Fundación de NAE en Shenzhen, China' },
+  { year: '2021', text: 'Primera línea de producción R290' },
+  { year: '2022', text: 'Expansión a Latinoamérica' },
+  { year: '2023', text: 'Certificaciones CE, ISO 9001, RoHS' },
+  { year: '2024', text: 'Red de 50+ instaladores partners' },
+  { year: '2025', text: 'Nueva fábrica de 20,000 m²' },
+  { year: '2026', text: 'Lanzamiento plataforma digital NAE' },
+];
 
 export default function About() {
-  const { t } = useTranslation();
-
   return (
-    <div className="min-h-screen">
-      {/* ── HERO ── */}
-      <section className="bg-gradient-to-r from-nae-dark-blue to-nae-blue py-20 md:py-28">
-        <div className="max-w-content mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            {t('about.title')}
-          </h1>
-          <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto">
-            Más de una década liderando la transición energética en Latinoamérica
-          </p>
-        </div>
+    <div>
+      <section className="bg-gradient-to-br from-[#0D2B6B] to-[#1B4DB5] py-20 text-white text-center">
+        <h1 className="text-4xl font-bold md:text-5xl">Sobre NAE</h1>
+        <p className="mx-auto mt-4 max-w-2xl text-lg text-blue-100">New AGE Energy — Conectando la tecnología térmica de China con las necesidades de Latinoamérica.</p>
       </section>
-
-      {/* ── STORY ── */}
-      <section className="bg-white py-16">
-        <div className="max-w-3xl mx-auto px-4 text-center space-y-4">
-          <p className="text-gray-700 leading-relaxed">
-            NAE Heat Pumps nació de una necesidad real: después de más de 10 años trabajando como instaladores de sistemas de climatización,
-            entendimos los desafíos que enfrentan los profesionales día a día. Vimos cómo muchas marcas ofrecían equipos con especificaciones técnicas
-            que no se correspondían con la realidad, dejando a los instaladores sin respaldo cuando más lo necesitaban.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            Decidimos cambiar el paradigma. Creamos NAE con una premisa clara: fabricar bombas de calor que realmente cumplan lo que prometen,
-            con soporte técnico integral y una red de distribución que acompañe al instalador en cada proyecto.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            Hoy operamos desde Shenzhen, China, con alcance en más de 15 países de Latinoamérica, liderando la transición energética
-            con tecnología eficiente, sostenible y accesible.
-          </p>
-          <p className="text-gray-700 leading-relaxed">
-            Nuestro equipo combina décadas de experiencia en instalación con ingenieros de I+D de clase mundial,
-            asegurando que cada producto que sale de nuestra fábrica esté diseñado para durar.
-          </p>
-          <p className="italic text-nae-orange font-semibold text-xl mt-6">
-            "No vendemos máquinas. Vendemos certeza."
-          </p>
-        </div>
-      </section>
-
-      {/* ── TIMELINE ── */}
-      <section className="bg-nae-grey py-16">
-        <div className="max-w-content mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-nae-dark">
-            Nuestra Historia
-          </h2>
-          <div className="relative max-w-3xl mx-auto">
-            {/* Vertical line */}
-            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gray-300 md:left-1/2 md:-translate-x-px" />
-            {timeline.map((item, idx) => (
-              <div
-                key={item.year}
-                className={`relative flex items-start mb-10 last:mb-0 md:items-center ${
-                  idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                }`}
-              >
-                {/* Orange circle with year */}
-                <div className="w-12 h-12 rounded-full bg-nae-orange text-white font-bold flex items-center justify-center z-10 shrink-0 text-sm">
-                  {item.year}
-                </div>
-                {/* Content card */}
-                <div
-                  className={`ml-6 md:ml-0 md:w-5/12 ${
-                    idx % 2 === 0 ? 'md:mr-auto md:pr-8' : 'md:ml-auto md:pl-8'
-                  }`}
-                >
-                  <div className="bg-white rounded-lg shadow p-5">
-                    <h3 className="font-bold text-nae-dark mb-1">{item.title}</h3>
-                    <p className="text-gray-600 text-sm">{item.desc}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+      <section className="py-16">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-6 text-3xl font-bold text-center">Nuestra Historia</h2>
+          <div className="space-y-4 text-gray-600 leading-relaxed">
+            <p>NAE (New AGE Energy) nació en Shenzhen, China, como respuesta a la creciente demanda de soluciones de climatización eficientes y sostenibles en Latinoamérica. Desde 2020, hemos diseñado y fabricado bombas de calor de última generación que combinan tecnología avanzada con precios competitivos.</p>
+            <p>Nuestra misión es democratizar el acceso a la energía térmica renovable, apoyando a instaladores y distribuidores con equipos certificados, capacitación técnica y soporte integral.</p>
+            <p>Hoy operamos en 15 países, contamos con más de 50 partners instaladores certificados, y seguimos creciendo gracias a la confianza de nuestros clientes.</p>
           </div>
         </div>
       </section>
-
-      {/* ── MISSION / VISION / VALUES ── */}
-      <section className="bg-white py-16">
-        <div className="max-w-content mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Mission */}
-            <div className="bg-white rounded-xl shadow-lg p-8 text-center border-t-4 border-nae-orange">
-              <div className="w-14 h-14 rounded-full bg-nae-orange/10 flex items-center justify-center mx-auto mb-4">
-                <Target className="w-7 h-7 text-nae-orange" />
-              </div>
-              <h3 className="text-xl font-bold text-nae-dark mb-3">{t('about.mission')}</h3>
-              <p className="text-gray-600">
-                Democratizar el acceso a tecnología de climatización eficiente en Latinoamérica
-              </p>
-            </div>
-            {/* Vision */}
-            <div className="bg-white rounded-xl shadow-lg p-8 text-center border-t-4 border-nae-blue">
-              <div className="w-14 h-14 rounded-full bg-nae-blue/10 flex items-center justify-center mx-auto mb-4">
-                <Eye className="w-7 h-7 text-nae-blue" />
-              </div>
-              <h3 className="text-xl font-bold text-nae-dark mb-3">{t('about.vision')}</h3>
-              <p className="text-gray-600">
-                Ser la marca de bombas de calor más confiable de Latinoamérica para 2030
-              </p>
-            </div>
-            {/* Values */}
-            <div className="bg-white rounded-xl shadow-lg p-8 text-center border-t-4 border-green-500">
-              <div className="w-14 h-14 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-4">
-                <Heart className="w-7 h-7 text-green-500" />
-              </div>
-              <h3 className="text-xl font-bold text-nae-dark mb-3">{t('about.values')}</h3>
-              <p className="text-gray-600">
-                Innovación, Sostenibilidad, Compromiso, Excelencia y Trabajo en Equipo
-              </p>
-            </div>
+      <section className="bg-gray-50 py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-10 text-3xl font-bold text-center">Nuestros Valores</h2>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {values.map(v => <Card key={v.title} className="text-center hover:shadow-lg transition-shadow"><CardContent className="pt-6"><v.icon className="mx-auto mb-3 h-10 w-10 text-[#1B4DB5]" /><h3 className="mb-2 font-semibold">{v.title}</h3><p className="text-sm text-gray-600">{v.desc}</p></CardContent></Card>)}
           </div>
         </div>
       </section>
-
-      {/* ── CERTIFICATES ── */}
-      <section className="bg-nae-grey py-16">
-        <div className="max-w-content mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-3 text-nae-dark">
-            Certificaciones de Calidad
-          </h2>
-          <p className="text-gray-600 text-center mb-10 max-w-xl mx-auto">
-            Respaldados por los estándares más exigentes del mercado
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                icon: <Award className="w-8 h-8" />,
-                name: 'ISO 9001',
-                desc: 'Sistema de Gestión de Calidad certificado internacionalmente.',
-              },
-              {
-                icon: <FlaskConical className="w-8 h-8" />,
-                name: 'ISO 14001',
-                desc: 'Compromiso con la gestión ambiental y la sostenibilidad.',
-              },
-              {
-                icon: <Check className="w-8 h-8" />,
-                name: 'CE Mark',
-                desc: 'Cumplimiento de normativas europeas de seguridad y calidad.',
-              },
-              {
-                icon: <Settings className="w-8 h-8" />,
-                name: 'STPRS',
-                desc: 'Certificación sanitaria para equipos de tratamiento de agua.',
-              },
-            ].map((cert) => (
-              <div
-                key={cert.name}
-                className="bg-white rounded-xl shadow p-6 text-center hover:shadow-lg transition-shadow"
-              >
-                <div className="text-nae-orange mb-3 flex justify-center">{cert.icon}</div>
-                <h4 className="font-bold text-nae-dark mb-2">{cert.name}</h4>
-                <p className="text-gray-600 text-sm">{cert.desc}</p>
-              </div>
-            ))}
+      <section className="py-16">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
+            {stats.map(s => <div key={s.label} className="rounded-xl bg-[#1B4DB5] p-6 text-center text-white"><s.icon className="mx-auto mb-2 h-8 w-8" /><div className="text-3xl font-bold">{s.value}</div><div className="text-sm text-blue-100">{s.label}</div></div>)}
           </div>
         </div>
       </section>
-
-      {/* ── TEAM ── */}
-      <section className="bg-white py-16">
-        <div className="max-w-content mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-nae-dark">
-            Nuestro Equipo
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {team.map((member) => (
-              <div key={member.initials} className="text-center">
-                <div
-                  className="w-24 h-24 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4"
-                  style={{ backgroundColor: "bg-nae-blue" }}
-                >
-                  {member.initials}
-                </div>
-                <h4 className="font-bold text-nae-dark">{member.name}</h4>
-                <p className="text-nae-orange text-sm font-medium">{member.role}</p>
-                <p className="text-gray-500 text-sm mt-1">{""}</p>
-              </div>
-            ))}
+      <section className="bg-gray-50 py-16">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+          <h2 className="mb-10 text-3xl font-bold text-center">Línea de Tiempo</h2>
+          <div className="space-y-6">
+            {milestones.map(m => <div key={m.year} className="flex items-start gap-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#E87722] text-sm font-bold text-white">{m.year.slice(2)}</div>
+              <div className="rounded-lg bg-white p-4 shadow-sm flex-1"><span className="text-xs font-semibold text-[#1B4DB5]">{m.year}</span><p className="text-gray-700">{m.text}</p></div>
+            </div>)}
           </div>
-        </div>
-      </section>
-
-      {/* ── CTA ── */}
-      <section className="bg-white py-16">
-        <div className="max-w-content mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-nae-dark mb-4">
-            ¿Quieres ser parte de nuestra red?
-          </h2>
-          <p className="text-gray-600 mb-8 max-w-xl mx-auto">
-            Únete a los distribuidores e instaladores que ya confían en NAE para ofrecer
-            la mejor tecnología de climatización a sus clientes.
-          </p>
-          <Link
-            to="/register"
-            className="inline-block bg-nae-orange text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors"
-          >
-            Registrarme Ahora
-          </Link>
         </div>
       </section>
     </div>

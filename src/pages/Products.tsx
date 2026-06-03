@@ -1,134 +1,52 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { products } from '../data';
-
-const categoryFilters = [
-  'Todos',
-  'Aire-Agua',
-  'Split',
-  'Comercial',
-  'Geotermia',
-  'Piscina',
-  'Estanques',
-  'Kits',
-  'Accesorios',
-];
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { getProducts } from '@/lib/supabase';
+import type { Product } from '@/data';
+import { categories } from '@/data';
+import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Loader2 } from 'lucide-react';
 
 export default function Products() {
-  const { t } = useTranslation();
-  const [activeFilter, setActiveFilter] = useState('Todos');
+  const navigate = useNavigate();
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeCat, setActiveCat] = useState('Todos');
 
-  const filteredProducts =
-    activeFilter === 'Todos'
-      ? products
-      : products.filter((p) => p.category === activeFilter);
+  useEffect(() => {
+    getProducts().then(data => { setProducts(data); setLoading(false); });
+  }, []);
+
+  const filtered = activeCat === 'Todos' ? products : products.filter(p => p.category === activeCat);
+
+  if (loading) return <div className="flex h-[60vh] items-center justify-center"><Loader2 className="h-8 w-8 animate-spin text-[#1B4DB5]" /></div>;
 
   return (
     <div>
-      {/* Hero */}
-      <section className="bg-gradient-to-r from-[#0D2B6B] to-[#1B4DB5] py-20">
-        <div className="max-w-[1280px] mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold text-white">
-            {t('products.title')}
-          </h1>
-          <p className="text-white/80 mt-4 text-lg">
-            Catálogo completo de bombas de calor, estanques y kits NAE
-          </p>
-        </div>
+      <section className="bg-gradient-to-br from-[#0D2B6B] to-[#1B4DB5] py-12 text-white text-center">
+        <h1 className="text-3xl font-bold md:text-4xl">Nuestros Productos</h1>
+        <p className="mt-2 text-blue-100">Bombas de calor y accesorios para instaladores profesionales</p>
       </section>
-
-      {/* Filter bar */}
-      <section className="bg-white border-b">
-        <div className="max-w-[1280px] mx-auto px-4 py-4">
-          <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-            {categoryFilters.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveFilter(cat)}
-                className={`whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer ${
-                  activeFilter === cat
-                    ? 'bg-[#1B4DB5] text-white'
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+      <section className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="mb-6 flex flex-wrap gap-2">
+          {categories.map(c => (
+            <button key={c} onClick={() => setActiveCat(c)} className={`rounded-full px-4 py-2 text-sm font-medium transition-colors ${activeCat === c ? 'bg-[#1B4DB5] text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>{c}</button>
+          ))}
         </div>
-      </section>
-
-      {/* Product grid */}
-      <section className="bg-[#F5F7FA] py-12">
-        <div className="max-w-[1280px] mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredProducts.map((product) => (
-              <div
-                key={product.id}
-                className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                {/* Top - Product Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).style.display = 'none';
-                      (e.target as HTMLImageElement).parentElement!.style.backgroundColor = product.badgeBg;
-                      (e.target as HTMLImageElement).parentElement!.innerHTML += `<span class="text-6xl flex items-center justify-center h-full">${product.emoji}</span>`;
-                    }}
-                  />
-                  <span className="absolute top-2 right-2 bg-white/90 rounded-full text-xs font-semibold px-3 py-1 shadow">
-                    {product.category}
-                  </span>
-                </div>
-                {/* Bottom */}
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-[#1A1A2E]">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm mt-2 line-clamp-2">
-                    {product.description}
-                  </p>
-                  <div className="flex justify-between items-center mt-4">
-                    <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                      COP {product.cop}
-                    </span>
-                    <Link
-                      to={`/products/${product.slug}`}
-                      className="text-[#1B4DB5] font-semibold text-sm hover:underline"
-                    >
-                      Ver Detalles →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {filteredProducts.length === 0 && (
-            <p className="text-center text-gray-500 py-12">
-              No se encontraron productos en esta categoría.
-            </p>
-          )}
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filtered.map(p => (
+            <Card key={p.id} className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate(`/product/${p.slug}`)}>
+              <div className="aspect-[3/2] overflow-hidden bg-gray-100"><img src={p.image} alt={p.name} className="h-full w-full object-cover" /></div>
+              <CardContent className="p-4">
+                <Badge className="mb-2" variant="secondary">{p.category}</Badge>
+                <h3 className="font-semibold">{p.name}</h3>
+                <p className="mt-1 text-sm text-gray-600 line-clamp-2">{p.description}</p>
+                <div className="mt-2 flex items-center justify-between"><span className="text-sm font-bold text-[#1B4DB5]">COP {p.cop}</span><span className="text-sm text-gray-500">${p.price}</span></div>
+              </CardContent>
+            </Card>
+          ))}
         </div>
-      </section>
-
-      {/* CTA */}
-      <section className="bg-white py-12">
-        <div className="max-w-[1280px] mx-auto px-4 text-center">
-          <h2 className="text-2xl font-bold text-[#1A1A2E] mb-4">
-            ¿Necesitas una solución personalizada?
-          </h2>
-          <Link
-            to="/contact"
-            className="inline-block bg-[#E87722] text-white font-semibold px-8 py-3 rounded-lg hover:bg-[#d66a1a] transition-colors"
-          >
-            Contactar Ventas
-          </Link>
-        </div>
+        {filtered.length === 0 && <p className="py-12 text-center text-gray-500">No hay productos en esta categoría.</p>}
       </section>
     </div>
   );
