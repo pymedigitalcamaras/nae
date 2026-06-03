@@ -59,14 +59,20 @@ export default function ProductDetail() {
       <section className="bg-[#F5F7FA] py-12">
         <div className="max-w-[1280px] mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* LEFT */}
-            <div
-              className="rounded-2xl h-80 flex items-center justify-center"
-              style={{ backgroundColor: product.badgeBg }}
-            >
-              <span className="text-9xl" role="img" aria-label={product.name}>
-                {product.emoji}
-              </span>
+            {/* LEFT - Product Image */}
+            <div className="rounded-2xl h-80 overflow-hidden shadow-lg">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = 'none';
+                  target.parentElement!.style.backgroundColor = product.badgeBg;
+                  target.parentElement!.classList.add('flex', 'items-center', 'justify-center');
+                  target.parentElement!.innerHTML += `<span class="text-9xl">${product.emoji}</span>`;
+                }}
+              />
             </div>
 
             {/* RIGHT */}
@@ -142,14 +148,20 @@ export default function ProductDetail() {
                   key={p.id}
                   className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border"
                 >
-                  <div
-                    className="relative h-48 flex items-center justify-center"
-                    style={{ backgroundColor: p.badgeBg }}
-                  >
-                    <span className="text-6xl" role="img" aria-label={p.name}>
-                      {p.emoji}
-                    </span>
-                    <span className="absolute top-2 right-2 bg-white/90 rounded-full text-xs font-semibold px-3 py-1">
+                  <div className="relative h-48 overflow-hidden">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                      onError={(e) => {
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = 'none';
+                        target.parentElement!.style.backgroundColor = p.badgeBg;
+                        target.parentElement!.classList.add('flex', 'items-center', 'justify-center');
+                        target.parentElement!.innerHTML += `<span class="text-6xl">${p.emoji}</span><span class="absolute top-2 right-2 bg-white/90 rounded-full text-xs font-semibold px-3 py-1">${p.category}</span>`;
+                      }}
+                    />
+                    <span className="absolute top-2 right-2 bg-white/90 rounded-full text-xs font-semibold px-3 py-1 shadow">
                       {p.category}
                     </span>
                   </div>

@@ -16,6 +16,7 @@ const Pricing = lazy(() => import('./pages/Pricing'));
 const SavingsCalculator = lazy(() => import('./pages/SavingsCalculator'));
 const Admin = lazy(() => import('./pages/Admin'));
 const OEM = lazy(() => import('./pages/OEM'));
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
 
 const Loading = () => (
   <div className="min-h-screen flex items-center justify-center">
@@ -39,8 +40,10 @@ export default function App() {
         <Route path="/pricing" element={<Suspense fallback={<Loading />}><Pricing /></Suspense>} />
         <Route path="/savings-calculator" element={<Suspense fallback={<Loading />}><SavingsCalculator /></Suspense>} />
         <Route path="/dashboard" element={<Suspense fallback={<Loading />}><ProtectedRoute><Dashboard /></ProtectedRoute></Suspense>} />
-        <Route path="/admin" element={<Suspense fallback={<Loading />}><ProtectedRoute adminOnly><Admin /></ProtectedRoute></Suspense>} />
       </Route>
+      {/* Admin routes - no Layout (fullscreen) */}
+      <Route path="/admin" element={<Suspense fallback={<Loading />}><Admin /></Suspense>} />
+      <Route path="/admin-login" element={<Suspense fallback={<Loading />}><AdminLogin /></Suspense>} />
     </Routes>
   );
 }

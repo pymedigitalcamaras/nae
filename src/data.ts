@@ -12,6 +12,7 @@ export interface Product {
   moq: string;
   badgeBg: string;
   emoji: string;
+  image: string;
   features: string[];
 }
 
@@ -22,7 +23,7 @@ export const products: Product[] = [
     category: 'Aire-Agua', categoryEn: 'Air-Water',
     description: 'Sistema monobloc con refrigerante ecológico R290. Alta eficiencia para climas templados y fríos. Ideal para viviendas unifamiliares hasta 120m². Kit completo listo para instalar.',
     cop: '4.5', power: '12 kW', price: '$1,850', moq: '5 u.',
-    badgeBg: 'bg-blue-600', emoji: '❄️',
+    badgeBg: 'bg-blue-600', emoji: '❄️', image: '/products/r290-12kw.jpg',
     features: ['Refrigerante R290 ecológico', 'COP 4.5', 'Cubre hasta 120m²', 'Kit completo incluido', 'Control WiFi opcional', 'Incluye bomba circulación']
   },
   {
@@ -31,7 +32,7 @@ export const products: Product[] = [
     category: 'Aire-Agua', categoryEn: 'Air-Water',
     description: 'Potente sistema monobloc 20kW para aplicaciones comerciales ligeras y residencias grandes. Rendimiento óptimo en climas variados. Kit completo.',
     cop: '4.2', power: '20 kW', price: '$2,650', moq: '3 u.',
-    badgeBg: 'bg-blue-700', emoji: '🏭',
+    badgeBg: 'bg-blue-700', emoji: '🏭', image: '/products/r290-20kw.jpg',
     features: ['Refrigerante R290 ecológico', 'COP 4.2', 'Cubre hasta 200m²', 'Compresor inverter', 'Panel táctil LCD', 'Kit completo incluido']
   },
   {
@@ -40,7 +41,7 @@ export const products: Product[] = [
     category: 'Aire-Agua', categoryEn: 'Air-Water',
     description: 'Sistema compacto de 8kW perfecto para departamentos y espacios reducidos. Máxima eficiencia en mínimo espacio.',
     cop: '4.6', power: '8 kW', price: '$1,480', moq: '5 u.',
-    badgeBg: 'bg-blue-500', emoji: '🏠',
+    badgeBg: 'bg-blue-500', emoji: '🏠', image: '/products/r290-8kw.jpg',
     features: ['Diseño compacto', 'COP 4.6', 'Cubre hasta 80m²', 'Instalación sencilla', 'Ultra silencioso', 'Kit completo']
   },
   {
@@ -49,7 +50,7 @@ export const products: Product[] = [
     category: 'Split', categoryEn: 'Split',
     description: 'Kit completo split con unidad interior fancoil. Ideal para renovaciones y sustitución de sistemas antiguos.',
     cop: '4.2', power: '9 kW', price: '$1,450', moq: '5 u.',
-    badgeBg: 'bg-teal-600', emoji: '🌀',
+    badgeBg: 'bg-teal-600', emoji: '🌀', image: '/products/split-9kw.jpg',
     features: ['Unidad interior fancoil', 'COP 4.2', 'Cubre hasta 90m²', 'Instalación flexible', 'Mando a distancia', 'Kit completo']
   },
   {
@@ -58,7 +59,7 @@ export const products: Product[] = [
     category: 'Comercial', categoryEn: 'Commercial',
     description: 'Sistema de alta capacidad para edificios comerciales, oficinas y aplicaciones industriales ligeras.',
     cop: '4.0', power: '30 kW', price: '$4,200', moq: '2 u.',
-    badgeBg: 'bg-purple-600', emoji: '🏢',
+    badgeBg: 'bg-purple-600', emoji: '🏢', image: '/products/comercial-30kw.jpg',
     features: ['COP 4.0', 'Cubre hasta 400m²', 'Compresor scroll', 'Control PLC avanzado', 'Soporte técnico dedicado']
   },
   {
@@ -67,7 +68,7 @@ export const products: Product[] = [
     category: 'Geotermia', categoryEn: 'Geothermal',
     description: 'Aprovecha la energía del subsuelo para máxima eficiencia todo el año. Rendimiento estable independientemente del clima exterior.',
     cop: '5.2', power: '15 kW', price: '$3,800', moq: '3 u.',
-    badgeBg: 'bg-emerald-600', emoji: '🌱',
+    badgeBg: 'bg-emerald-600', emoji: '🌱', image: '/products/geotermica-15kw.jpg',
     features: ['COP 5.2', 'Rendimiento estable año completo', 'Cubre hasta 150m²', 'Intercambiador coaxial', 'Vida útil 20+ años']
   },
   {
@@ -76,7 +77,7 @@ export const products: Product[] = [
     category: 'Piscina', categoryEn: 'Pool',
     description: 'Mantén tu piscina a la temperatura ideal todo el año con máxima eficiencia. Intercambiador de titanio anticorrosión.',
     cop: '5.5', power: '20 kW', price: '$1,950', moq: '5 u.',
-    badgeBg: 'bg-cyan-600', emoji: '🏊',
+    badgeBg: 'bg-cyan-600', emoji: '🏊', image: '/products/piscina-20kw.jpg',
     features: ['COP 5.5', 'Intercambiador titanio', 'Cubre hasta 80m³', 'Operación desde -15°C', 'Display digital']
   },
   {
@@ -85,7 +86,7 @@ export const products: Product[] = [
     category: 'Accesorios', categoryEn: 'Accessories',
     description: 'Bomba de circulación eficiente para sistemas de calefacción por suelo radiante. Ahorro energético de hasta 80%.',
     cop: '-', power: '6m', price: '$180', moq: '10 u.',
-    badgeBg: 'bg-gray-600', emoji: '💧',
+    badgeBg: 'bg-gray-600', emoji: '💧', image: '/products/circulacion.jpg',
     features: ['Ahorro 80% energía', 'Control automático variable', 'Hasta 6 metros altura', 'Instalación sencilla', 'Ultra silenciosa']
   },
   {
@@ -94,7 +95,7 @@ export const products: Product[] = [
     category: 'Estanques', categoryEn: 'Tanks',
     description: 'Estanque de agua caliente sanitaria de 200 litros con doble serpentín. Acero inoxidable 316L. Incluye soporte y aislamiento.',
     cop: '-', power: '200L', price: '$320', moq: '10 u.',
-    badgeBg: 'bg-orange-500', emoji: '🔥',
+    badgeBg: 'bg-orange-500', emoji: '🔥', image: '/products/estanque-200l.jpg',
     features: ['Acero inoxidable 316L', 'Doble serpentín', 'Aislación térmica', 'Incluye soporte', 'Válvula de seguridad']
   },
   {
@@ -103,7 +104,7 @@ export const products: Product[] = [
     category: 'Estanques', categoryEn: 'Tanks',
     description: 'Estanque de agua caliente sanitaria de 300 litros. Ideal para familias grandes o uso comercial ligero.',
     cop: '-', power: '300L', price: '$420', moq: '8 u.',
-    badgeBg: 'bg-orange-600', emoji: '🔥',
+    badgeBg: 'bg-orange-600', emoji: '🔥', image: '/products/estanque-300l.jpg',
     features: ['Acero inoxidable 316L', 'Doble serpentín', 'Aislación térmica premium', 'Incluye soporte reforzado', 'Válvula de seguridad']
   },
   {
@@ -112,7 +113,7 @@ export const products: Product[] = [
     category: 'Kits', categoryEn: 'Kits',
     description: 'Kit completo con tubería PEX, fittings, válvulas y accesorios para instalación de sistema de calefacción por suelo radiante.',
     cop: '-', power: '-', price: '$450', moq: '5 u.',
-    badgeBg: 'bg-green-600', emoji: '📦',
+    badgeBg: 'bg-green-600', emoji: '📦', image: '/products/kit-pex.jpg',
     features: ['Tubería PEX 100m', 'Fittings completos', 'Válvulas termostáticas', 'Manual instalación', 'Soporte técnico incluido']
   },
   {
@@ -121,7 +122,7 @@ export const products: Product[] = [
     category: 'Kits', categoryEn: 'Kits',
     description: 'Kit hidráulico profesional con colector, bomba circulación, válvulas mezcladoras, expulsor de aire y todos los accesorios.',
     cop: '-', power: '-', price: '$680', moq: '5 u.',
-    badgeBg: 'bg-green-700', emoji: '🔧',
+    badgeBg: 'bg-green-700', emoji: '🔧', image: '/products/kit-hidraulico.jpg',
     features: ['Colector 2-12 circuitos', 'Bomba circulación', 'Válvula mezcladora 3 vías', 'Expulsor aire automático', 'Manómetros incluidos']
   }
 ];

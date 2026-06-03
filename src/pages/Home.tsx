@@ -435,9 +435,19 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredProducts.map((product: any) => (
               <div key={product.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all">
-                <div className={`${product.badgeBg} h-48 flex items-center justify-center relative`}>
-                  <span className="text-6xl">{product.emoji}</span>
-                  <span className="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold">{product.category}</span>
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = 'none';
+                      target.parentElement!.classList.add(product.badgeBg, 'flex', 'items-center', 'justify-center');
+                      target.parentElement!.innerHTML += `<span class="text-6xl">${product.emoji}</span><span class="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold">${product.category}</span>`;
+                    }}
+                  />
+                  <span className="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold shadow">{product.category}</span>
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-nae-dark mb-2">{product.name}</h3>

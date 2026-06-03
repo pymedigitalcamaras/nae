@@ -68,15 +68,19 @@ export default function Products() {
                 key={product.id}
                 className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-shadow"
               >
-                {/* Top */}
-                <div
-                  className="relative h-48 flex items-center justify-center"
-                  style={{ backgroundColor: product.badgeBg }}
-                >
-                  <span className="text-6xl" role="img" aria-label={product.name}>
-                    {product.emoji}
-                  </span>
-                  <span className="absolute top-2 right-2 bg-white/90 rounded-full text-xs font-semibold px-3 py-1">
+                {/* Top - Product Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).style.display = 'none';
+                      (e.target as HTMLImageElement).parentElement!.style.backgroundColor = product.badgeBg;
+                      (e.target as HTMLImageElement).parentElement!.innerHTML += `<span class="text-6xl flex items-center justify-center h-full">${product.emoji}</span>`;
+                    }}
+                  />
+                  <span className="absolute top-2 right-2 bg-white/90 rounded-full text-xs font-semibold px-3 py-1 shadow">
                     {product.category}
                   </span>
                 </div>
