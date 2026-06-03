@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { ClipboardList, Package, Users, Zap, LayoutGrid, Calculator, Tag, MessageCircle } from 'lucide-react';
+import { ClipboardList, Package, Users, Zap, LayoutGrid, Calculator, Tag, MessageCircle, LogOut } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const stats = [
   { icon: <ClipboardList size={20} />, label: 'Cotizaciones', value: '12', color: 'bg-blue-100 text-blue-600' },
@@ -24,17 +25,47 @@ const activity = [
 
 export default function Dashboard() {
   const { t } = useTranslation();
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    // Try to get user from localStorage (fallback)
+    const stored = localStorage.getItem('nae_user');
+    if (stored) {
+      setUser(JSON.parse(stored));
+    } else {
+      // Default demo user
+      setUser({ name: 'Carlos Rodríguez', email: 'carlos@climasoluciones.mx', role: 'installer', company: 'ClimaSoluciones MX', phone: '+52-55-XXXX-XXXX', country: 'México' });
+    }
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('nae_user');
+    window.location.href = '/';
+  };
+
+  const initials = user?.name?.split(' ').map((n: string) => n[0]).join('').toUpperCase() || 'U';
+
   return (
     <div className="min-h-screen bg-nae-grey">
       <section className="bg-gradient-to-r from-nae-dark-blue to-nae-blue py-8 px-4">
         <div className="max-w-content mx-auto">
-          <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-2xl font-bold text-white font-heading">{t('dashboard.welcome')}, Carlos</h1>
-            <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium">Instalador Certificado</span>
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <h1 className="text-2xl font-bold text-white font-heading">{t('dashboard.welcome')}, {user?.name?.split(' ')[0] || 'Usuario'}</h1>
+                <span className={`px-3 py-1 rounded-full text-xs font-medium ${user?.role === 'admin' ? 'bg-purple-500' : user?.role === 'installer' ? 'bg-green-500' : 'bg-yellow-500'} text-white`}>
+                  {user?.role === 'admin' ? 'Admin' : user?.role === 'installer' ? 'Instalador Certificado' : 'Pendiente'}
+                </span>
+              </div>
+              <p className="text-blue-100 text-sm">Panel de control de instalador NAE</p>
+            </div>
+            <button onClick={handleLogout} className="text-white hover:bg-white/10 px-3 py-2 rounded-lg transition-colors flex items-center gap-2">
+              <LogOut size={18} /> Salir
+            </button>
           </div>
-          <p className="text-blue-100 text-sm">{t('dashboard.title') || 'Panel de control de instalador NAE'}</p>
         </div>
       </section>
+
       <div className="max-w-content mx-auto px-4 py-8 space-y-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map(s => (
@@ -45,20 +76,25 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="bg-white rounded-xl shadow p-6">
             <h2 className="font-bold text-lg mb-4">{t('dashboard.myProfile')}</h2>
             <div className="flex items-center gap-4 mb-6">
-              <div className="w-16 h-16 rounded-full bg-nae-orange text-white flex items-center justify-center text-xl font-bold">CR</div>
-              <div><p className="font-semibold">Carlos Rodríguez</p><p className="text-gray-500 text-sm">ClimaSoluciones MX</p></div>
+              <div className="w-16 h-16 rounded-full bg-nae-orange text-white flex items-center justify-center text-xl font-bold">{initials}</div>
+              <div>
+                <p className="font-semibold">{user?.name || 'Usuario'}</p>
+                <p className="text-gray-500 text-sm">{user?.company || ''}</p>
+              </div>
             </div>
             <div className="space-y-2 text-sm">
-              <p className="text-gray-600">📧 carlos@climasoluciones.mx</p>
-              <p className="text-gray-600">📱 +52-55-XXXX-XXXX</p>
-              <p className="text-gray-600">📍 México</p>
+              <p className="text-gray-600">📧 {user?.email || ''}</p>
+              <p className="text-gray-600">📱 {user?.phone || ''}</p>
+              <p className="text-gray-600">📍 {user?.country || ''}</p>
             </div>
             <button className="mt-4 px-4 py-2 border border-nae-blue text-nae-blue rounded-lg text-sm hover:bg-nae-blue hover:text-white transition-colors">Editar Perfil</button>
           </div>
+
           <div className="bg-white rounded-xl shadow p-6">
             <h2 className="font-bold text-lg mb-4">{t('dashboard.quickLinks')}</h2>
             <div className="grid grid-cols-2 gap-3">
@@ -71,6 +107,7 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+
         <div className="bg-white rounded-xl shadow p-6">
           <h2 className="font-bold text-lg mb-4">{t('dashboard.activity')}</h2>
           <div className="space-y-3">

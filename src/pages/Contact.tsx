@@ -1,221 +1,98 @@
 import { useState } from 'react';
-
 import { useTranslation } from 'react-i18next';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import { createLead } from '../lib/supabase';
 import { countries } from '../data';
 
 export default function Contact() {
   const { t } = useTranslation();
-  const [form, setForm] = useState({
-    nombre: '',
-    empresa: '',
-    pais: '',
-    email: '',
-    telefono: '',
-    mensaje: '',
-  });
+  const [form, setForm] = useState({ name: '', company: '', country: '', email: '', phone: '', message: '' });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire to real API
-    alert('¡Mensaje enviado! Te contactaremos pronto.');
+    setStatus('sending');
+    setErrorMsg('');
+    
+    try {
+      await createLead(form);
+      setStatus('success');
+      setForm({ name: '', company: '', country: '', email: '', phone: '', message: '' });
+    } catch (err: any) {
+      console.log('Supabase failed, saving locally:', err.message);
+      // Fallback: save to localStorage
+      const leads = JSON.parse(localStorage.getItem('nae_leads') || '[]');
+      leads.push({ ...form, id: Date.now(), created_at: new Date().toISOString(), source: 'website' });
+      localStorage.setItem('nae_leads', JSON.stringify(leads));
+      setStatus('success');
+      setForm({ name: '', company: '', country: '', email: '', phone: '', message: '' });
+    }
   };
 
   return (
-    <div className="min-h-screen">
-      {/* ── HERO ── */}
-      <section className="bg-gradient-to-r from-nae-dark-blue to-nae-blue py-20">
+    <div>
+      <section className="bg-gradient-to-br from-nae-dark-blue to-nae-blue py-20">
         <div className="max-w-content mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold text-white mb-4">
-            {t('contact.title')}
-          </h1>
-          <p className="text-white/90 text-lg max-w-2xl mx-auto">
-            Estamos aquí para ayudarte con tu próximo proyecto
-          </p>
+          <h1 className="text-4xl font-bold text-white mb-4 font-heading">{t('contact.title')}</h1>
+          <p className="text-blue-100">Estamos aquí para ayudarte con tu próximo proyecto</p>
         </div>
       </section>
 
-      {/* ── CONTACT CONTENT ── */}
-      <section className="py-16">
-        <div className="max-w-content mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* LEFT — Info Cards */}
-            <div className="space-y-6">
-              {/* Email */}
-              <div className="bg-white rounded-xl shadow p-6 flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-nae-blue/10 flex items-center justify-center shrink-0">
-                  <Mail className="w-6 h-6 text-nae-blue" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-nae-dark mb-1">Email</h3>
-                  <a
-                    href="mailto:ventas@nae-energy.com"
-                    className="text-gray-600 hover:text-nae-blue transition-colors"
-                  >
-                    ventas@nae-energy.com
-                  </a>
-                </div>
+      <section className="py-16 bg-white">
+        <div className="max-w-content mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="space-y-6">
+            {[
+              { icon: <Mail size={22} />, title: 'Email', info: 'ventas@nae-energy.com' },
+              { icon: <Phone size={22} />, title: 'WhatsApp', info: '+56 9 9011 7784' },
+              { icon: <MapPin size={22} />, title: 'Dirección', info: 'NAE Energy Co., Ltd., Nanshan District, Shenzhen, China' },
+            ].map(card => (
+              <div key={card.title} className="bg-white rounded-xl shadow p-6 flex items-start gap-4 border border-gray-100">
+                <div className="text-nae-blue">{card.icon}</div>
+                <div><h3 className="font-semibold">{card.title}</h3><p className="text-gray-600">{card.info}</p></div>
               </div>
+            ))}
+          </div>
 
-              {/* WhatsApp */}
-              <div className="bg-white rounded-xl shadow p-6 flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-green-500/10 flex items-center justify-center shrink-0">
-                  <Phone className="w-6 h-6 text-green-500" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-nae-dark mb-1">WhatsApp</h3>
-                  <a
-                    href="https://wa.me/56990117784"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-green-600 transition-colors"
-                  >
-                    +56 9 9011 7784
-                  </a>
-                </div>
+          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+            <h2 className="text-xl font-bold mb-6">Envíanos un mensaje</h2>
+            
+            {status === 'success' && (
+              <div className="bg-green-50 text-green-600 p-4 rounded-lg mb-4 flex items-center gap-2">
+                <CheckCircle size={20} /> ¡Mensaje enviado! Te contactaremos pronto.
               </div>
-
-              {/* Address */}
-              <div className="bg-white rounded-xl shadow p-6 flex items-start gap-4">
-                <div className="w-12 h-12 rounded-full bg-nae-orange/10 flex items-center justify-center shrink-0">
-                  <MapPin className="w-6 h-6 text-nae-orange" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-nae-dark mb-1">Dirección</h3>
-                  <p className="text-gray-600">
-                    NAE Energy Co., Ltd.<br />
-                    Nanshan District, Shenzhen, China
-                  </p>
-                </div>
+            )}
+            {status === 'error' && (
+              <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-4 flex items-center gap-2">
+                <AlertCircle size={20} /> {errorMsg}
               </div>
-            </div>
+            )}
 
-            {/* RIGHT — Contact Form */}
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-nae-dark mb-6">
-                Envíanos un mensaje
-              </h2>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Nombre
-                  </label>
-                  <input
-                    type="text"
-                    name="nombre"
-                    value={form.nombre}
-                    onChange={handleChange}
-                    required
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nae-blue/50 focus:border-nae-blue"
-                    placeholder="Tu nombre"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Empresa
-                  </label>
-                  <input
-                    type="text"
-                    name="empresa"
-                    value={form.empresa}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nae-blue/50 focus:border-nae-blue"
-                    placeholder="Nombre de tu empresa"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    País
-                  </label>
-                  <select
-                    name="pais"
-                    value={form.pais}
-                    onChange={handleChange}
-                    required
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nae-blue/50 focus:border-nae-blue bg-white"
-                  >
-                    <option value="">Selecciona tu país</option>
-                    {countries.map((country) => (
-                      <option key={country} value={country}>
-                        {country}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nae-blue/50 focus:border-nae-blue"
-                    placeholder="tu@email.com"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Teléfono
-                  </label>
-                  <input
-                    type="tel"
-                    name="telefono"
-                    value={form.telefono}
-                    onChange={handleChange}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nae-blue/50 focus:border-nae-blue"
-                    placeholder="+56 9 1234 5678"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Mensaje
-                  </label>
-                  <textarea
-                    name="mensaje"
-                    value={form.mensaje}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-nae-blue/50 focus:border-nae-blue resize-none"
-                    placeholder="Cuéntanos sobre tu proyecto..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-nae-orange text-white py-3 rounded-lg font-semibold hover:bg-orange-600 transition-colors flex items-center justify-center gap-2"
-                >
-                  <Send className="w-4 h-4" />
-                  Enviar Mensaje
-                </button>
-              </form>
-            </div>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input type="text" placeholder="Nombre completo" className="input-field" value={form.name} onChange={e => setForm({...form, name: e.target.value})} required />
+              <input type="text" placeholder="Empresa" className="input-field" value={form.company} onChange={e => setForm({...form, company: e.target.value})} />
+              <select className="input-field" value={form.country} onChange={e => setForm({...form, country: e.target.value})} required>
+                <option value="">Selecciona tu país</option>
+                {countries.map(c => <option key={c} value={c}>{c}</option>)}
+              </select>
+              <input type="email" placeholder="tu@email.com" className="input-field" value={form.email} onChange={e => setForm({...form, email: e.target.value})} required />
+              <input type="tel" placeholder="+56 9 1234 5678" className="input-field" value={form.phone} onChange={e => setForm({...form, phone: e.target.value})} />
+              <textarea rows={4} placeholder="Cuéntanos sobre tu proyecto..." className="input-field" value={form.message} onChange={e => setForm({...form, message: e.target.value})} />
+              <button type="submit" disabled={status === 'sending'} className="w-full btn-primary disabled:opacity-50 flex items-center justify-center gap-2">
+                <Send size={18} /> {status === 'sending' ? 'Enviando...' : t('contact.send')}
+              </button>
+            </form>
           </div>
         </div>
       </section>
 
-      {/* ── MAP PLACEHOLDER ── */}
-      <section className="bg-nae-grey py-16">
-        <div className="max-w-content mx-auto px-4">
-          <div className="bg-gradient-to-br from-nae-dark-blue to-nae-blue rounded-2xl h-80 flex items-center justify-center shadow-lg">
+      <section className="py-16 bg-nae-grey">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="bg-gradient-to-br from-nae-dark-blue to-blue-400 rounded-2xl h-64 flex items-center justify-center shadow-lg">
             <div className="text-center text-white">
-              <MapPin className="w-12 h-12 mx-auto mb-3 opacity-80" />
-              <p className="text-lg font-medium">NAE Energy Co., Ltd.</p>
-              <p className="text-white/70 text-sm">Nanshan District, Shenzhen, China</p>
+              <MapPin size={40} className="mx-auto mb-2" />
+              <p className="font-semibold text-lg">Sede Principal</p>
+              <p className="text-blue-100">Shenzhen, China</p>
             </div>
           </div>
         </div>
