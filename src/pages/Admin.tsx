@@ -301,7 +301,7 @@ export default function Admin() {
 
     if (editingProduct === 'new') {
       setProducts((prev) => [...prev, payload]);
-    } else if (editingProduct && typeof editingProduct === 'object') {
+    } else if (editingProduct && typeof editingProduct === 'object' && 'id' in editingProduct) {
       setProducts((prev) =>
         prev.map((p) => (p.id === payload.id ? payload : p))
       );

@@ -1,30 +1,27 @@
-import { products } from '../data';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { products } from '../data';
 import { Lock } from 'lucide-react';
 
 export default function Pricing() {
+  const { t } = useTranslation();
   return (
     <div>
-      {/* Hero */}
       <section className="bg-gradient-to-br from-nae-dark-blue to-nae-blue py-20">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-4xl font-bold text-white mb-4 font-heading">Tarifas Mayoristas</h1>
+        <div className="max-w-content mx-auto px-4 text-center">
+          <h1 className="text-4xl font-bold text-white mb-4 font-heading">{t('pricing.title')}</h1>
           <p className="text-blue-100">Precios exclusivos para instaladores autorizados NAE</p>
         </div>
       </section>
-
       <section className="py-12 bg-nae-grey">
         <div className="max-w-5xl mx-auto px-4">
-          {/* Alert */}
           <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 mb-8 flex items-start gap-3">
             <Lock size={20} className="text-yellow-600 shrink-0 mt-0.5" />
             <div>
-              <h3 className="font-semibold text-yellow-800">Acceso Restringido</h3>
-              <p className="text-yellow-700 text-sm">Esta página es exclusiva para instaladores registrados y aprobados por NAE. Si eres instalador profesional, <Link to="/register" className="underline">regístrate aquí</Link>.</p>
+              <h3 className="font-semibold text-yellow-800">{t('pricing.restricted')}</h3>
+              <p className="text-yellow-700 text-sm">{t('pricing.loginRequired')} <Link to="/register" className="underline">Regístrate aquí</Link>.</p>
             </div>
           </div>
-
-          {/* Table */}
           <div className="bg-white rounded-xl shadow overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
@@ -51,12 +48,9 @@ export default function Pricing() {
               </table>
             </div>
           </div>
-
           <p className="text-sm text-gray-500 mt-4">* Precios FOB Shenzhen en USD. Sujetos a cambio sin previo aviso. MOQ = Cantidad mínima de pedido.</p>
         </div>
       </section>
-
-      {/* CTA */}
       <section className="bg-white py-12 text-center">
         <div className="max-w-3xl mx-auto px-4">
           <h2 className="text-2xl font-bold mb-4">¿Quieres acceder a estos precios?</h2>

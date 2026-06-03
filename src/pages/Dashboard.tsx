@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ClipboardList, Package, Users, Zap, LayoutGrid, Calculator, Tag, MessageCircle } from 'lucide-react';
 
 const stats = [
@@ -22,21 +23,19 @@ const activity = [
 ];
 
 export default function Dashboard() {
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen bg-nae-grey">
-      {/* Banner */}
       <section className="bg-gradient-to-r from-nae-dark-blue to-nae-blue py-8 px-4">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-content mx-auto">
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-2xl font-bold text-white font-heading">Bienvenido, Carlos</h1>
+            <h1 className="text-2xl font-bold text-white font-heading">{t('dashboard.welcome')}, Carlos</h1>
             <span className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-medium">Instalador Certificado</span>
           </div>
-          <p className="text-blue-100 text-sm">Panel de control de instalador NAE</p>
+          <p className="text-blue-100 text-sm">{t('dashboard.title') || 'Panel de control de instalador NAE'}</p>
         </div>
       </section>
-
-      <div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
-        {/* Stats */}
+      <div className="max-w-content mx-auto px-4 py-8 space-y-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {stats.map(s => (
             <div key={s.label} className="bg-white rounded-xl p-4 text-center border border-gray-100">
@@ -46,18 +45,12 @@ export default function Dashboard() {
             </div>
           ))}
         </div>
-
-        {/* Two Column */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Profile */}
           <div className="bg-white rounded-xl shadow p-6">
-            <h2 className="font-bold text-lg mb-4">Mi Perfil</h2>
+            <h2 className="font-bold text-lg mb-4">{t('dashboard.myProfile')}</h2>
             <div className="flex items-center gap-4 mb-6">
               <div className="w-16 h-16 rounded-full bg-nae-orange text-white flex items-center justify-center text-xl font-bold">CR</div>
-              <div>
-                <p className="font-semibold">Carlos Rodríguez</p>
-                <p className="text-gray-500 text-sm">ClimaSoluciones MX</p>
-              </div>
+              <div><p className="font-semibold">Carlos Rodríguez</p><p className="text-gray-500 text-sm">ClimaSoluciones MX</p></div>
             </div>
             <div className="space-y-2 text-sm">
               <p className="text-gray-600">📧 carlos@climasoluciones.mx</p>
@@ -66,10 +59,8 @@ export default function Dashboard() {
             </div>
             <button className="mt-4 px-4 py-2 border border-nae-blue text-nae-blue rounded-lg text-sm hover:bg-nae-blue hover:text-white transition-colors">Editar Perfil</button>
           </div>
-
-          {/* Quick Links */}
           <div className="bg-white rounded-xl shadow p-6">
-            <h2 className="font-bold text-lg mb-4">Accesos Rápidos</h2>
+            <h2 className="font-bold text-lg mb-4">{t('dashboard.quickLinks')}</h2>
             <div className="grid grid-cols-2 gap-3">
               {quickLinks.map(link => (
                 <Link key={link.to} to={link.to} className="bg-nae-grey hover:bg-nae-blue hover:text-white rounded-lg p-4 text-center transition-all group">
@@ -80,10 +71,8 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
-
-        {/* Activity */}
         <div className="bg-white rounded-xl shadow p-6">
-          <h2 className="font-bold text-lg mb-4">Actividad Reciente</h2>
+          <h2 className="font-bold text-lg mb-4">{t('dashboard.activity')}</h2>
           <div className="space-y-3">
             {activity.map((item, i) => (
               <div key={i} className="flex items-center gap-3 pb-3 border-b last:border-0">

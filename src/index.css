@@ -12,74 +12,62 @@
     --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
-    --primary: 224 64% 33%;
+    --primary: 220 75% 41%;
     --primary-foreground: 0 0% 100%;
     --secondary: 220 14% 96%;
     --secondary-foreground: 222 47% 11%;
     --muted: 220 14% 96%;
     --muted-foreground: 220 9% 46%;
-    --accent: 25 95% 53%;
+    --accent: 27 80% 52%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 224 64% 33%;
+    --ring: 220 75% 41%;
     --radius: 0.5rem;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
+  html { scroll-behavior: smooth; }
   body {
     @apply bg-nae-grey text-nae-dark antialiased;
     font-family: 'Inter', system-ui, sans-serif;
   }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-  }
+  h1, h2, h3, h4, h5, h6 { font-family: 'Space Grotesk', system-ui, sans-serif; }
 }
 
 @layer components {
   .gradient-text {
     @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(90deg, #1E40AF 0%, #F97316 100%);
+    background-image: linear-gradient(90deg, #1B4DB5 0%, #E87722 100%);
   }
-
   .gradient-bg {
-    background: linear-gradient(135deg, #1E40AF 0%, #1E3A8A 50%, #1E40AF 100%);
+    background: linear-gradient(135deg, #0D2B6B 0%, #1B4DB5 50%, #1B4DB5 100%);
   }
-
   .gradient-bg-light {
-    background: linear-gradient(135deg, #3B82F6 0%, #1E40AF 100%);
+    background: linear-gradient(135deg, #1B4DB5 0%, #3B6FD1 100%);
   }
-
   .container-content {
     @apply max-w-content mx-auto px-4 sm:px-6 lg:px-8;
   }
-
   .section-padding {
     @apply py-16 md:py-20 lg:py-24;
   }
-
   .btn-primary {
     @apply inline-flex items-center justify-center bg-nae-orange hover:bg-nae-dark-orange text-white font-semibold px-8 py-4 rounded-lg transition-all duration-200 hover:scale-[1.02] shadow-lg;
   }
-
   .btn-secondary {
     @apply inline-flex items-center justify-center bg-nae-blue hover:bg-nae-dark-blue text-white font-semibold px-8 py-4 rounded-lg transition-all duration-200 hover:scale-[1.02];
   }
-
   .btn-outline {
     @apply inline-flex items-center justify-center border-2 border-nae-blue text-nae-blue hover:bg-nae-blue hover:text-white font-semibold px-8 py-4 rounded-lg transition-all duration-200;
   }
-
+  .btn-outline-white {
+    @apply inline-flex items-center justify-center border-2 border-white text-white hover:bg-white hover:text-nae-blue font-semibold px-8 py-4 rounded-lg transition-all duration-200;
+  }
   .card {
     @apply bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1;
   }
-
   .input-field {
     @apply w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-nae-blue focus:border-transparent transition-all;
   }

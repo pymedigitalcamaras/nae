@@ -433,18 +433,18 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredProducts.map(p => (
-              <div key={p.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all">
-                <div className={`${p.badgeBg} h-40 flex items-center justify-center relative`}>
-                  <span className="text-6xl">{p.emoji}</span>
-                  <span className="absolute top-3 right-3 bg-white/90 px-3 py-1 rounded-full text-xs font-semibold">{p.category}</span>
+            {featuredProducts.map((product: any) => (
+              <div key={product.id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all">
+                <div className={`${product.badgeBg} h-48 flex items-center justify-center relative`}>
+                  <span className="text-6xl">{product.emoji}</span>
+                  <span className="absolute top-3 right-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold">{product.category}</span>
                 </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-lg mb-1">{p.name}</h3>
-                  <p className="text-gray-600 text-sm mb-3">{p.description.slice(0, 80)}...</p>
-                  <div className="flex items-center justify-between">
-                    <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-xs font-medium">COP {p.cop}</span>
-                    <Link to={`/products/${p.slug}`} className="text-nae-blue text-sm font-medium hover:underline">Ver más →</Link>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-nae-dark mb-2">{product.name}</h3>
+                  <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
+                  <div className="flex items-center justify-between mt-4">
+                    <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">COP {product.cop}</span>
+                    <Link to={`/products/${product.slug}`} className="text-nae-blue font-medium text-sm hover:underline">Ver Detalles →</Link>
                   </div>
                 </div>
               </div>
